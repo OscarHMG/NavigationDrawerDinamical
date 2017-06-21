@@ -10,37 +10,43 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android_kaizen.com.customnavigationdrawer.model.ObjectDrawerItem;
 
 /**
  * Created by Andy on 10-Dec-14.
  */
-public class NavigationDrawerHelper {
+public class NavigationDrawerHelper{
 
     DrawerLayout mDrawerLayout;
     ListView mDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
+    public DrawerItemCustomAdapter adapter;
+    public List<ObjectDrawerItem> items;
+    Activity activity;
 
 
     // Method to initialize our NavigationDrawer from the hosting Activity.
     // We pass the Activity and the OnItemClickListener
     public void init(Activity activity, ListView.OnItemClickListener listener) {
-
+        this.activity = activity;
         // We define our constant variables
         mDrawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         mDrawerListView = (ListView) activity.findViewById(R.id.left_drawer);
 
-        // List the Drawer Items
-        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
 
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_email, "Email");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_web_site, "Web");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_headphones, "Music");
-        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_action_settings, "Settings");
+
+        items = new ArrayList<>();
+        items.add(new ObjectDrawerItem(R.drawable.ic_action_email, "Email"));
+        items.add( new ObjectDrawerItem(R.drawable.ic_action_web_site, "Web"));
+        items.add(new ObjectDrawerItem(R.drawable.ic_action_headphones, "Music"));
+        items.add(new ObjectDrawerItem(R.drawable.ic_action_settings, "Settings"));
 
 
         // Declare a new instance of our Custom drawer Adapter
-        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(activity, R.layout.listview_drawer_item_row, drawerItem);
+        adapter = new DrawerItemCustomAdapter(activity, R.layout.listview_drawer_item_row, items);
 
         // Set the Adapter and the Listener on the ListView
         mDrawerListView.setAdapter(adapter);
@@ -88,7 +94,7 @@ public class NavigationDrawerHelper {
     // To highlight at selection, the list item selected and close the Drawer
     // Will be called in the OnItemClick() method of the hosting Activity
     public void handleSelect(int option) {
-        mDrawerListView.setItemChecked(option,true);
+        mDrawerListView.setItemChecked(option, true);
         mDrawerLayout.closeDrawer(mDrawerListView);
 
     }
@@ -116,7 +122,18 @@ public class NavigationDrawerHelper {
     }
 
     public void setSelection(int option) {
-        mDrawerListView.setItemChecked(option,true);
+        mDrawerListView.setItemChecked(option, true);
+    }
+
+    public void updateDrawer() {
+        adapter.notifyDataSetChanged();
+
+    }
+
+
+
+    public Activity getActivity() {
+        return (MainActivity)activity;
     }
 
 }

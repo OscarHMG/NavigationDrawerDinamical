@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import android_kaizen.com.customnavigationdrawer.model.ObjectDrawerItem;
 
 /**
@@ -18,9 +20,9 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
 
     Context mContext;
     int mLayoutResourceId;
-    ObjectDrawerItem mData[] = null;
+    List<ObjectDrawerItem> mData = null;
 
-    public DrawerItemCustomAdapter(Context context, int layoutResourceId, ObjectDrawerItem[] data) {
+    public DrawerItemCustomAdapter(Context context, int layoutResourceId,  List<ObjectDrawerItem> data) {
         this.mContext = context;
         this.mLayoutResourceId = layoutResourceId;
         this.mData = data;
@@ -28,12 +30,12 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.length;
+        return mData.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mData[position];
+        return mData.get(position);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View listItem = convertView;
-        ObjectDrawerItem objectDrawerItem = mData[position];
+        ObjectDrawerItem objectDrawerItem = mData.get(position);
 
         LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
         listItem = inflater.inflate(mLayoutResourceId, parent, false);

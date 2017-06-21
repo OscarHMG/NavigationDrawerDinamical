@@ -20,7 +20,7 @@ import android_kaizen.com.customnavigationdrawer.fragments.WebFragment;
 
 public class MainActivity extends Activity implements ListView.OnItemClickListener {
 
-    private NavigationDrawerHelper mNavigationDrawerHelper;
+    public NavigationDrawerHelper mNavigationDrawerHelper;
 
     private Fragment mFragment;
 
@@ -130,6 +130,8 @@ public class MainActivity extends Activity implements ListView.OnItemClickListen
         mNavigationDrawerHelper.syncState();
         super.onConfigurationChanged(newConfig);
     }
+
+
 
 
 }
